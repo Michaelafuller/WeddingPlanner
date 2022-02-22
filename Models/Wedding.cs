@@ -26,6 +26,8 @@ namespace WeddingPlanner.Models
         [Required]
         [MinLength(5, ErrorMessage = "must be at least 5 characters")]
         public string WeddingAddress { get; set; }
+        public int CreatedBy { get; set; }
+
 
         public List<UserWeddingRSVP> UserWeddingRSVP { get; set; }
 

@@ -25,10 +25,12 @@
                         @if(Context.Session.GetInt32("UUID") != null)
                         {
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Wedding" asp-action="CreateWedding">New Wedding</a>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Wedding" asp-action="NewWedding">New Wedding</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Logout">Logout</a>
+                                <form asp-controller="Home" asp-action="Logout" method="post">
+                                <button class="btn btn-sm btn-outline-danger" asp-area="" >Logout</button>
+                                </form>
                             </li>
                         }
                         else

@@ -68,7 +68,7 @@ namespace WeddingPlanner.Controllers
         db.SaveChanges();
 
         HttpContext.Session.SetInt32("UUID", newUser.UserId);
-        return RedirectToAction("Account", "Bank");
+        return RedirectToAction("Dashboard", "Wedding");
     }
 
         [HttpPost("/login/user")]
@@ -96,7 +96,7 @@ namespace WeddingPlanner.Controllers
                 }
                 HttpContext.Session.SetInt32("UUID", userInDb.UserId);
             }
-                return RedirectToAction("Account", "Bank");
+                return RedirectToAction("Dashboard", "Wedding");
         }
 
         [HttpPost("/logout")]
@@ -106,7 +106,7 @@ namespace WeddingPlanner.Controllers
             {
                 HttpContext.Session.Remove("UUID");
             }
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
     public IActionResult Privacy()

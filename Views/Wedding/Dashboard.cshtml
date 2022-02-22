@@ -1,2 +1,33 @@
-
+@model UserWeddingRSVP
+<div class="container-fluid">
 <h1>Welcome to the Wedding Planner</h1>
+<table class="table table-striped">
+    <tr>
+        <th>Wedding</th>
+        <th>Date</th>
+        <th>Guests</th>
+        <th>Action</th>
+    </tr> 
+    @foreach (var item in ViewBag.allWeddings)
+    {
+        <td>@item.WedderOne & @item.WedderTwo</td>
+        <td>@item.Date</td>
+        <td>@item.UserWeddingRSVP.Count</td>
+        if(Context.Session.GetInt32("UUID") == @item.UserWeddingRSVP.CreatedBy)
+        {
+            <form asp-controller="Wedding" asp-action="DeleteWedding" method="post">
+            <td><button class="btn btn-sm btn-outline-danger">Delete</button></td>
+            </form>
+        }
+        else
+        {
+            <form asp-controller="Wedding" asp-action="RSVP" method="post">
+            <td><button class="btn btn-sm btn-outline-primary">RSVP</button></td>
+            </form>
+        }
+    }
+</table>
+<form asp-controller="Wedding" asp-action="NewWedding" method="post">
+    <button class="btn btn-success">New Wedding</button>
+</form>
+</div>

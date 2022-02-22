@@ -61,3 +61,4 @@ C:\Users\micha\OneDrive\Desktop\stacks\c_sharp\ORMs\WeddingPlanner\obj\Debug\net
 C:\Users\micha\OneDrive\Desktop\stacks\c_sharp\ORMs\WeddingPlanner\obj\Debug\netcoreapp3.1\WeddingPlanner.pdb
 C:\Users\micha\OneDrive\Desktop\stacks\c_sharp\ORMs\WeddingPlanner\obj\Debug\netcoreapp3.1\WeddingPlanner.genruntimeconfig.cache
 C:\Users\micha\OneDrive\Desktop\stacks\c_sharp\ORMs\WeddingPlanner\obj\Debug\netcoreapp3.1\Razor\Views\Wedding\Dashboard.cshtml.g.cs
+C:\Users\micha\OneDrive\Desktop\stacks\c_sharp\ORMs\WeddingPlanner\obj\Debug\netcoreapp3.1\Razor\Views\Wedding\NewWedding.cshtml.g.cs
