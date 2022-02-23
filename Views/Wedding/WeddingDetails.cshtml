@@ -1,0 +1,13 @@
+@model Wedding
+<div class="container">
+    <h1>@Model.WedderOne & @Model.WedderTwo's Wedding</h1>
+    <h5>@Model.Date</h5>
+</div>
+
+<div class="container">
+    <h5>Guests</h5>
+    @foreach (var item in Model.UserWeddingRSVP)
+    {
+        <p>@item.User.FirstName @item.User.LastName</p>
+    }
+</div>

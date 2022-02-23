@@ -104,9 +104,9 @@ namespace WeddingPlanner.Controllers
         {
             if (isLoggedIn)
             {
-                HttpContext.Session.Remove("UUID");
+                HttpContext.Session.Clear();
             }
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index");
         }
 
     public IActionResult Privacy()

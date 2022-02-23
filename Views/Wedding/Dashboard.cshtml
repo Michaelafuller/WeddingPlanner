@@ -1,4 +1,9 @@
-@model UserWeddingRSVP
+
+@* @{
+    bool existingRSVP = Model.UserId
+            .Any(u => u.UserId == Context.Session.GetInt32("UUID"));
+
+} *@
 <div class="container-fluid">
 <h1>Welcome to the Wedding Planner</h1>
 <table class="table table-striped">
@@ -10,24 +15,35 @@
     </tr> 
     @foreach (var item in ViewBag.allWeddings)
     {
-        <td>@item.WedderOne & @item.WedderTwo</td>
-        <td>@item.Date</td>
-        <td>@item.UserWeddingRSVP.Count</td>
-        if(Context.Session.GetInt32("UUID") == @item.UserWeddingRSVP.CreatedBy)
-        {
-            <form asp-controller="Wedding" asp-action="DeleteWedding" method="post">
-            <td><button class="btn btn-sm btn-outline-danger">Delete</button></td>
-            </form>
-        }
-        else
-        {
-            <form asp-controller="Wedding" asp-action="RSVP" method="post">
-            <td><button class="btn btn-sm btn-outline-primary">RSVP</button></td>
-            </form>
-        }
+        <tr>
+            <td><a href="/wedding/@item.WeddingId">@item.WedderOne & @item.WedderTwo</a></td>
+            <td>@item.Date</td>
+            <td>@item.UserWeddingRSVP.Count</td>
+            @if(Context.Session.GetInt32("UUID") == @item.CreatedBy)
+            {
+                <form asp-controller="Wedding" asp-action="DeleteWedding" asp-route-weddingId ="@item.WeddingId">
+                <td><button class="btn btn-sm btn-outline-danger">Delete</button></td>
+                </form>
+            }
+            else
+            {
+                <form asp-controller="Wedding" asp-action="RSVP" asp-route-weddingId ="@item.WeddingId">
+                    <td><button class="btn btn-sm btn-outline-primary">
+                    @if(ViewBag.existingRSVP)
+                    {
+                        <span>Un-RSVP</span>
+                    }
+                    else
+                    {
+                        <span>RSVP</span>
+                    }
+                    </button></td>
+                </form>
+            }
+        </tr>
     }
 </table>
-<form asp-controller="Wedding" asp-action="NewWedding" method="post">
+<form asp-controller="Wedding" asp-action="NewWedding" method="get">
     <button class="btn btn-success">New Wedding</button>
 </form>
 </div>

@@ -1,9 +1,11 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace WeddingPlanner.Models
 {
     public class UserWeddingRSVP
     {
+        [Key]
         public int UserWeddingRSVPId { get; set; }
         public int UserId { get; set; }
         public int WeddingId { get; set; }

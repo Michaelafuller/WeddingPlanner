@@ -19,7 +19,8 @@ namespace WeddingPlanner.Models
         [MinLength(2, ErrorMessage = "must be at least {1} characters ")]
         public string WedderTwo { get; set; }
 
-        [Required]
+        [Required(ErrorMessage ="is required")]
+        [DataType(DataType.Date)]
         [FutureDate]
         public DateTime Date { get; set; }
 

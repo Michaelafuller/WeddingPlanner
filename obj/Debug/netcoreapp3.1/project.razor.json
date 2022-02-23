@@ -14447,6 +14447,11 @@
       "FileKind": "mvc"
     },
     {
+      "FilePath": "c:\\Users\\micha\\OneDrive\\Desktop\\stacks\\c_sharp\\ORMs\\WeddingPlanner\\Views\\Wedding\\WeddingDetails.cshtml",
+      "TargetPath": "Views\\Wedding\\WeddingDetails.cshtml",
+      "FileKind": "mvc"
+    },
+    {
       "FilePath": "c:\\Users\\micha\\OneDrive\\Desktop\\stacks\\c_sharp\\ORMs\\WeddingPlanner\\Views\\_ViewImports.cshtml",
       "TargetPath": "Views\\_ViewImports.cshtml",
       "FileKind": "mvc"

@@ -49,6 +49,10 @@ namespace WeddingPlanner.Controllers
                 .ToList();
             ViewBag.allWeddings = allWeddings;
 
+            bool existingRSVP = db.UserWeddingRSVPs
+                .Any(u => u.UserId == (int)UUID);
+            ViewBag.existingRSVP = existingRSVP;
+
             return View("Dashboard");
         }
 
@@ -73,6 +77,63 @@ namespace WeddingPlanner.Controllers
 
             newWedding.CreatedBy = (int)UUID;
             db.Add(newWedding);
+            db.SaveChanges();
+            return RedirectToAction("Dashboard");
+        }
+
+        [HttpGet("/wedding/{weddingId}")]
+        public IActionResult WeddingDetails(int weddingId)
+        {
+            if(!isLoggedIn)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            Wedding queriedWedding = db.Weddings
+                .Include(w => w.UserWeddingRSVP)
+                    .ThenInclude(u => u.User)
+                    // .ThenInclude(u => u.FirstName)
+                .FirstOrDefault(w => w.WeddingId == weddingId);
+
+            return View("WeddingDetails", queriedWedding);
+        }
+
+        [HttpPost("/wedding/rsvp")]
+        public IActionResult WeddingRSVP(int weddingId, UserWeddingRSVP newRSVP)
+        {
+            if(!isLoggedIn)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+
+            UserWeddingRSVP existingRSVP = db.UserWeddingRSVPs
+                .FirstOrDefault(u => u.UserId == (int)UUID && u.WeddingId == weddingId);
+
+            if(existingRSVP == null)
+            {
+                newRSVP.WeddingId = weddingId;
+                newRSVP.UserId = (int)UUID;
+                db.UserWeddingRSVPs.Add(newRSVP);
+            }
+            else
+            {
+                db.UserWeddingRSVPs.Remove(existingRSVP);
+            }
+    
+            db.SaveChanges();
+                return RedirectToAction("Dashboard");
+        }
+
+        [HttpPost("/wedding/delete")]
+        public IActionResult DeleteWedding(int weddingId)
+        {
+            if(!isLoggedIn)
+            {
+                return RedirectToAction("Index", "Home");
+            }
+            Wedding deleteWedding = db.Weddings
+                .SingleOrDefault(w => w.WeddingId == weddingId);
+            db.Weddings.Remove(deleteWedding);
             db.SaveChanges();
             return RedirectToAction("Dashboard");
         }
