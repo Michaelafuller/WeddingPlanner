@@ -43,17 +43,18 @@ namespace WeddingPlanner.Controllers
                 return RedirectToAction("Index", "Home");
             }
 
-            var allWeddings = db.Weddings
+            List<Wedding> allWeddings = db.Weddings
                 .Include(w => w.UserWeddingRSVP)
                     .ThenInclude(u => u.User)
                 .ToList();
-            ViewBag.allWeddings = allWeddings;
+            // ViewBag.allWeddings = allWeddings;
 
-            bool existingRSVP = db.UserWeddingRSVPs
-                .Any(u => u.UserId == (int)UUID);
-            ViewBag.existingRSVP = existingRSVP;
+            // bool existingRSVP = db.UserWeddingRSVPs
+            //     .Include(u => u.Wedding)
+            //     .Any(u => u.UserId == (int)UUID);
+            // ViewBag.existingRSVP = existingRSVP;
 
-            return View("Dashboard");
+            return View("Dashboard", allWeddings);
         }
 
         [HttpGet("/wedding/new")]
@@ -73,6 +74,11 @@ namespace WeddingPlanner.Controllers
             if(!isLoggedIn)
             {
                 return RedirectToAction("Index", "Home");
+            }
+
+            if(ModelState.IsValid == false)
+            {
+                return View("NewWedding");
             }
 
             newWedding.CreatedBy = (int)UUID;

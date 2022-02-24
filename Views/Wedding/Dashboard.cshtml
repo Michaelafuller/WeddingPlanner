@@ -1,4 +1,4 @@
-
+@model List<Wedding>
 @* @{
     bool existingRSVP = Model.UserId
             .Any(u => u.UserId == Context.Session.GetInt32("UUID"));
@@ -13,11 +13,13 @@
         <th>Guests</th>
         <th>Action</th>
     </tr> 
-    @foreach (var item in ViewBag.allWeddings)
+    @foreach (Wedding item in Model)
     {
+        bool existingRSVP = item.UserWeddingRSVP
+            .Any(u => u.UserId == Context.Session.GetInt32("UUID"));
         <tr>
             <td><a href="/wedding/@item.WeddingId">@item.WedderOne & @item.WedderTwo</a></td>
-            <td>@item.Date</td>
+            <td>@item.Date.ToString("MM/dd/yyyy")</td>
             <td>@item.UserWeddingRSVP.Count</td>
             @if(Context.Session.GetInt32("UUID") == @item.CreatedBy)
             {
@@ -29,13 +31,13 @@
             {
                 <form asp-controller="Wedding" asp-action="RSVP" asp-route-weddingId ="@item.WeddingId">
                     <td><button class="btn btn-sm btn-outline-primary">
-                    @if(ViewBag.existingRSVP)
+                    @if(!existingRSVP)
                     {
-                        <span>Un-RSVP</span>
+                        <span>RSVP</span>
                     }
                     else
                     {
-                        <span>RSVP</span>
+                        <span>Un-RSVP</span>
                     }
                     </button></td>
                 </form>

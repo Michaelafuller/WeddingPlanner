@@ -7,18 +7,20 @@ namespace WeddingPlanner
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
-            if(value == null)
+            // Because our Date field is optional, can't convert null to date.
+            if (value == null)
             {
-                return new ValidationResult("is required");
+                return new ValidationResult("is required.");
             }
 
             DateTime date = (DateTime)value;
 
             if (date <= DateTime.Now)
             {
-                return new ValidationResult("must be a future date.");
+                Console.WriteLine("Date was in the past");
+                return new ValidationResult("must be in the future.");
             }
-
+            Console.WriteLine("Date was in the future");
             return ValidationResult.Success;
         }
     }
